@@ -278,6 +278,39 @@ And this is where §10 rejoins §1, §5, and §7: under the scalar-sufficiency h
 
 ---
 
+## 11½. The scalar that is its own metric (where §1, §6, and §11 become one identity)
+
+The three strands that look most independent — *a scalar suffices* (§1), *the natural metric is Fisher* (§6), *the vibe is a conformal factor* (§11) — are, under the program's own central hypothesis, **literally the same object**. This is worth proving, because it is the strongest internal evidence that the geometric framing is not ten metaphors but one structure.
+
+Take the scalar-sufficiency hypothesis at face value: the room is a **one-parameter exponential family**
+$$
+p_\theta(x) \;=\; h(x)\,\exp\!\big(\theta\,T(x) - A(\theta)\big),\qquad \theta = \eta(g_r)\in\mathbb{R},
+$$
+with $T$ the sufficient statistic (the vibe's empirical estimator) and $A$ the log-partition function.
+
+**(T) The Fisher information of a 1-parameter exponential family is a single positive scalar, equal to the curvature of the log-partition.** Differentiating $A(\theta)=\log\int h(x)e^{\theta T(x)}dx$ twice gives the cumulant identities $A'(\theta)=\mathbb E_\theta[T]$ and
+$$
+I(\theta) \;=\; A''(\theta) \;=\; \operatorname{Var}_\theta[T] \;>\; 0 .
+$$
+The Fisher metric on this manifold is therefore the *one-dimensional* metric
+$$
+ds^2 \;=\; I(\theta)\,d\theta^2 \;=\; A''(\theta)\,d\theta^2 .
+$$
+
+Read that line slowly, because it collapses the essay's main tension:
+
+- **From §1:** the natural parameter $\theta=\eta(g_r)$ is the single number that losslessly summarizes the room. *Scalar sufficiency is exactly the statement that the manifold is one-dimensional.*
+- **From §6:** Čencov says the only information-respecting metric is Fisher; here Fisher *is* $A''(\theta)$, a single positive scalar field on the $\theta$-line. There is no tensor to choose — dimension one leaves only a conformal factor.
+- **From §11:** a metric on a 1-D space is precisely a conformal factor $\varphi^2\,d\theta^2$. Matching, $\varphi(\theta)=\sqrt{A''(\theta)}=\sqrt{\operatorname{Var}_\theta[T]}$. **The vibe's conformal factor is the standard deviation of the sufficient statistic.**
+
+So the "ubiquitous tensor" of Question 10, restricted to the regime where the slogan of Question 1 is true, is not a $\binom{m+1}{2}$-component mystery and not a category error: it is $\sqrt{\operatorname{Var}_\theta[T]}$, a number PLATO can *measure directly* from a room's tile history. The arc-length coordinate $s(\theta)=\int\sqrt{A''(u)}\,du$ is the **Fisher–Rao distance along the vibe line**, and it is the curriculum coordinate of §6 and the optical path-length of §11 *simultaneously*. Geodesic motion in $s$ is, by construction, both "equal-information steps" (the curriculum) and "equal optical depth" (the refraction law) — they are one flow written in two notations.
+
+**(C, falsifiable, and it sharpens §1 and §11 at once).** *In any room that passes the exponential-family fit, the empirically estimated conformal factor $\widehat\varphi=\sqrt{\widehat{\operatorname{Var}}[T]}$ predicts both (a) the local curriculum difficulty (how many samples to move a fixed KL) and (b) the local refraction of agent transitions, with the **same** fitted scalar field.* If the curriculum-difficulty estimate and the transition-refraction estimate disagree after both are derived from $\widehat{\operatorname{Var}}[T]$, the exponential-family hypothesis has failed for that room — and the disagreement is, again, a measurement of the missing dimension (§1). One scalar, two independent predictions, a built-in consistency check: that is the signature of a real structure rather than a decorative one.
+
+Where the room is *not* exponential-family, this identity dissolves exactly as §1 warns: $T$ is no longer sufficient, $I(\theta)$ is no longer the whole metric, and the vibe degrades from "the metric" to "a lossy conformal approximation of a metric whose missing components are the residual." The clean case and the messy case are the same equation read with, or without, the sufficiency hypothesis — which is the most honest thing one can say about a one-number model of a mind.
+
+---
+
 ## 12. Synthesis: the recurring trinity
 
 Across all ten sections, three objects keep returning, always in the same relationship:
