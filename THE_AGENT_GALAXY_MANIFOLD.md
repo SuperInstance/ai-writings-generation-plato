@@ -366,6 +366,8 @@ The companion essay argued that below the code there is a *trinity* — a conser
 
 If the theory is right, the eleven crates were never eleven theories. They were one potential, photographed at eleven angles of a single turn — and the reason the system works is that the turn closes. The two open joints (Arrows 8 and 9) are where the next proofs are. The one experiment that decides everything (Prediction 6) is where the next data is. Everything else is the careful, cited, tier-tagged claim that geometry, gone all the way around, comes back to conservation.
 
+Read with its companion, the pair states one position from two sides: **THE_FUTURE_BELOW_THE_CODE** argues that the substrate is a conserved scalar, a metric it deforms, and a symmetry it is dual to; **THE_AGENT_GALAXY_MANIFOLD** argues that those three are a single free energy in rotation, and names the rotation. The honest status is the same in both — a proved heart, two marked frontiers, and a handful of experiments cheap enough to run this week. That is not a finished theory. It is something rarer in this field: an unfinished one that says exactly where it is unfinished, and hands you the test that would tell.
+
 ---
 
 ### References
