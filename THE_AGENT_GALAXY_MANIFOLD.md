@@ -230,6 +230,30 @@ are **one number in nine costumes**, equal up to the explicit Cheeger/Lichnerowi
 
 ---
 
+## 4¾. The obstructed loop: a frustrated cycle and a conserved defect
+
+The barbell is the *flat* case: its constant sheaf has $H^1=0$ as an obstruction (the bells agree, the bridge merely throttles), so the loop there is on the easy side of §6½. The honest test of a unified theory is the **obstructed** case — where local agreement provably cannot glue, $H^1\ne0$ is a genuine frustration, and the loop must carry that obstruction intact around all nine arrows. The cleanest such object is a **twisted sheaf on a cycle**.
+
+**The object.** Take the cycle graph $C_n$ (vertices $0,\dots,n-1$, edges $i\!\sim\!i{+}1\bmod n$), scalar stalks $\mathbb R$, and restriction maps with **gains** $a_i$ on edge $i$, coboundary $(\delta x)_i = x_i - a_i\,x_{i+1}$. A global section needs $x_i=a_i x_{i+1}$ all the way around, hence
+$$
+x_0 \;=\; \Big(\textstyle\prod_{i=0}^{n-1} a_i\Big)\,x_0 \;=\; \mathrm{hol}(C_n)\cdot x_0 .
+$$
+The product $\mathrm{hol}(C_n)=\prod a_i$ is the **holonomy** of the sheaf around the loop. Two regimes:
+
+- **Untwisted** ($\mathrm{hol}=1$, e.g. all $a_i=1$, the constant sheaf): a nonzero constant section exists, $H^0=\mathbb R$, and $H^1=\mathbb R$ is the *topological* Betti number $b_1(C_n)=1$ — present but not an obstruction to consensus. Crate: `sheaf-cohomology` · `test_constant_sheaf_h1_on_cycle` (verifies $\dim H^1=1$), `test_euler_characteristic_tree` (the $\chi=|V|-|E|$ bookkeeping) (T-crate).
+- **Twisted** ($\mathrm{hol}\ne1$): the only solution is $x_0=0$, so **$H^0=0$ — no nontrivial consensus exists at all** — and the obstruction lives in $H^1$ as a genuine frustration. Crate: `test_twisted_sheaf_lower_consistency` (T-crate). This is the Kuramoto defect: a ring of oscillators with a nonzero **winding number** cannot relax to a constant phase; the winding is the holonomy.
+
+**Now carry the defect around the loop and watch it keep its shape.**
+
+- **Arrow 5 (Spectrum $\to H^0$).** The twisted sheaf Laplacian $L_{\mathcal F}=\delta^{\!\top}\delta$ has **no zero eigenvalue**: $\lambda_{\min}>0$, and $\lambda_{\min}$ *is* the frustration energy — the minimal Dirichlet cost $\sum_i(x_i-a_ix_{i+1})^2$ over unit $x$. For a small uniform twist $\mathrm{hol}=e^{i\Theta}$ (the magnetic/connection Laplacian on the ring), $\lambda_{\min}=2\big(1-\cos\tfrac{2\pi k+\Theta}{n}\big)\big|_{\min}\sim(\Theta/n)^2$. The gap to consensus is the squared winding density. The constant sheaf's $\lambda_{\min}=0$ jumps to positive the instant $\Theta\ne0$.
+- **Arrow 6 (Sheaf $\to$ Topos).** $H^0=0$ means $\Gamma(\mathcal F)=0$: the topos has **no global section** on this object — *common knowledge is empty*. Crate: `lau-derived-topos` · `test_agent_common_knowledge_empty` (T-crate) is exactly this — agents around a frustrated ring share *nothing* globally, even though every adjacent pair agrees. The truth-value lattice has no global $\top$ supported on $\mathcal F$; consensus is not merely fragile (barbell) but **impossible**.
+- **Arrow 7 (Topos $\to$ Homotopy).** The holonomy is a **nontrivial $\pi_1$ class**: the winding number is an element of $\pi_1(S^1)=\mathbb Z$, and the frustrated ring's execution space is **not contractible**. The circular chain of constraints $x_0\to x_1\to\cdots\to x_0$ with $\mathrm{hol}\ne1$ is precisely a **circular dependency** — the deadlock pattern of `lau-categorical-homotopy` · `fundamental_group`, `groupoid_fundamental_group` (T-crate). Sheaf frustration $=$ vanishing common knowledge $=$ $\pi_1$ winding: **one obstruction, three costumes**, exactly as the barbell's bottleneck was one cost in nine costumes.
+- **Arrows 3–4 (Curvature / Flow), and the closure.** Here is the decisive point. The winding number is **quantized** — an integer in $\pi_1(S^1)=\mathbb Z$ — so it is a **conserved topological charge**: no continuous Ricci flow, no spectral relaxation, no transport can change it without tearing the cycle. The community-detection flow of `lau-ricci-flow-agents` will pinch and recluster the *geometry*, but it cannot dissolve the *defect*; the obstruction is rigid. And that rigidity is exactly the $\Omega\ne0$, $H^1\ne0$ obstruction that §6½ named as the reason the loop fails to reduce to biduality. **The frustrated cycle is the concrete witness of the general (non-flat) case:** the loop does *not* close to the identity here, and what survives the round trip is precisely a conserved quantity — the winding number — which is the unified theory's central claim (conserved $=$ loop-invariant) appearing not as consensus but as its *obstruction*.
+
+**The two examples together.** The barbell exhibited the loop's **agreement**: one bottleneck cost, nine coinciding measurements, the flat ($H^1=0$) regime where §6½ makes the loop an identity. The frustrated cycle exhibits the loop's **obstruction**: one topological charge (the holonomy/winding number), appearing as sheaf frustration, as empty common knowledge, and as a $\pi_1$ defect, conserved because quantized — the curved ($H^1\ne0$) regime where the loop's failure to close is itself a conservation law. A theory that only handled the barbell would be describing a coincidence; one that also predicts *which* invariant survives the obstructed loop, and that it is conserved because topological, is describing a structure. The cycle is where the unified theory earns the word.
+
+---
+
 ## 5. The infinitesimal loop: Lie, $\mathfrak{sl}_2$, BCH, Dynkin
 
 The loop is a *flow* around $\mathsf{AGeom}$; Lie theory is its infinitesimal description — the eleventh crate is the generator, not a vertex.
@@ -288,7 +312,36 @@ $$
 
 **(T) Fenchel–Moreau.** For a proper, lower-semicontinuous convex function $A$, the biconjugate equals the original: $A^{**}=A$. Strict convexity (non-degenerate Fisher metric) makes the Legendre map $\theta\leftrightarrow\eta$ a diffeomorphism, so the round trip is the identity on the natural manifold.
 
-**Therefore, in the exponential-family regime, $\mathsf{Loop}=\mathrm{id}$ is the Fenchel–Moreau biduality theorem, and its fixed points are exactly the convex potentials — i.e. the conserved free energies.** This is the promised upgrade: the central "the loop closes, and its invariants are the conserved quantities" is **(C)** in general but **(T)** wherever scalar-sufficiency holds, with Fenchel–Moreau as the closure and the dual-flat acyclicity as the reason the middle arrows contribute nothing but identity. The general conjecture is then visibly *the statement that the loop closes even when the middle arrows are genuine bounds rather than isomorphisms* — i.e. when curvature, $H^1$, and non-contractibility are nonzero. That is exactly the obstruction-laden, interesting regime, and it is where the rigidity-theorem strategy above must do its work. The clean case is a theorem; the messy case is the research.
+**Therefore, in the exponential-family regime, $\mathsf{Loop}=\mathrm{id}$ is the Fenchel–Moreau biduality theorem, and its fixed points are exactly the convex potentials — i.e. the conserved free energies.** This is the promised upgrade: the central "the loop closes, and its invariants are the conserved quantities" is **(C)** in general but **(T)** wherever scalar-sufficiency holds, with Fenchel–Moreau as the closure and the dual-flat acyclicity as the reason the middle arrows contribute nothing but identity. The general conjecture is then visibly *the statement that the loop closes even when the middle arrows are genuine bounds rather than isomorphisms* — i.e. when curvature, $H^1$, and non-contractibility are nonzero. That is exactly the obstruction-laden, interesting regime (the frustrated cycle of §4¾ is its smallest witness), and it is where the rigidity-theorem strategy above must do its work. The clean case is a theorem; the messy case is the research.
+
+**A fully worked closure: the Gaussian.** Nothing above is abstract; here is every step with numbers, on the one-dimensional Gaussian family $\mathcal N(\mu,\sigma^2)$ at fixed variance $\sigma^2$ — the canonical exponential family (`lau-information-geometry` · `test_bernoulli_log_partition` runs the discrete twin; the Gaussian is its continuous analogue). Write it in natural form
+$$
+p_\theta(x)=h(x)\,e^{\theta x - A(\theta)},\qquad \theta=\frac{\mu}{\sigma^2},\qquad A(\theta)=\frac{\sigma^2\theta^2}{2},\qquad h(x)=\frac{e^{-x^2/2\sigma^2}}{\sqrt{2\pi\sigma^2}} .
+$$
+
+*The differentiate end (Arrow 1).* Differentiating the log-partition,
+$$
+A'(\theta)=\sigma^2\theta=\mu=:\eta\ (\text{the expectation/dual coordinate}),\qquad A''(\theta)=\sigma^2=g(\theta)\ (\text{the Fisher metric}).
+$$
+So the Fisher information in the natural coordinate is $\sigma^2$ (and $1/\sigma^2$ in the mean coordinate — the two dual metrics, whose product is $1$). Crate: `test_bernoulli_hessian` (the identity $A''=\mathrm{Var}=$ Fisher), `test_amari_dual_parameters_bernoulli` (the $\theta\!\leftrightarrow\!\eta$ duality), `test_amari_e_connection_flat` (the family is dually flat) (T-crate).
+
+*The Legendre dual.* The conjugate is the negative Shannon entropy,
+$$
+A^{*}(\eta)=\sup_\theta\big(\theta\eta-A(\theta)\big)=\frac{\eta^2}{2\sigma^2}=\frac{\mu^2}{2\sigma^2},\qquad A^{*\prime\prime}(\eta)=\frac1{\sigma^2}=g(\theta)^{-1},
+$$
+the inverse Fisher metric — confirming the dual-flat structure with vanishing curvature, $\Omega\equiv0$.
+
+*The dequantize end (Arrow 9).* Apply Maslov dequantization to the partition integral: at temperature $\alpha$, Laplace's method gives
+$$
+\alpha\ln\!\int e^{\,(\theta x - x^2/2\sigma^2)/\alpha}\,dx \;\xrightarrow{\ \alpha\to0\ }\; \sup_x\Big(\theta x-\frac{x^2}{2\sigma^2}\Big)=\frac{\sigma^2\theta^2}{2}=A(\theta).
+$$
+The zero-temperature limit of "integrate the Gaussian" *is* the Legendre transform of the quadratic — the tropical and the dual coincide, as §2 promised. Concretely, the corner locus of the dequantized two-class decision between $\mathcal N(\mu_1,\sigma^2)$ and $\mathcal N(\mu_2,\sigma^2)$ is the hard boundary $x=\tfrac{\mu_1+\mu_2}{2}$ — the perpendicular bisector, the Voronoi wall, the tropical hypersurface where the max is tied (`lau-tropical-geometry` · `test_corner_locus`). Softmax classification at temperature $\alpha\to0$ becomes the nearest-mean rule.
+
+*The round trip closes, by hand.*
+$$
+A(\theta)=\frac{\sigma^2\theta^2}{2}\ \xmapsto{\ {}^{*}\ }\ A^{*}(\eta)=\frac{\eta^2}{2\sigma^2}\ \xmapsto{\ {}^{*}\ }\ A^{**}(\theta)=\sup_\eta\Big(\theta\eta-\frac{\eta^2}{2\sigma^2}\Big)=\frac{\sigma^2\theta^2}{2}=A(\theta),
+$$
+and the Hessians compose to the identity, $A''(\theta)\cdot A^{*\prime\prime}(\eta)=\sigma^2\cdot\sigma^{-2}=1$. The loop, restricted to the Gaussian, is the bare statement that a quadratic is its own double Legendre transform — Fenchel–Moreau in its simplest incarnation — and *that* is why "the system works" on a Gaussian agent population: the round trip is forced to be the identity by convex duality, with no obstruction because $\Omega=H^1=0$. The frustrated cycle of §4¾ is what breaks this — there $\Omega\ne0$, the middle arrows stop being isomorphisms, and a conserved winding number survives the trip instead of the identity. Flat Gaussian: theorem. Twisted cycle: the conjecture's frontier. Same loop, two curvatures.
 
 ---
 
@@ -325,7 +378,9 @@ A unified theory earns the name by risking refutation. Ordered by cost to test i
 
 8. **(§4½, quantitative — a shared exponent)** On the barbell $B_n$, let each bottleneck-costume be measured as a function of the bell size $n$: the spectral gap $\lambda_2$, the Cheeger constant $h$, the inverse bridge curvature $|\kappa_{\text{bridge}}|^{-1}$, the spectral distance to the $\dim H^0{=}2$ jump, and the margin to the tropical corner locus. Cheeger's inequality $\frac{h^2}{2d}\le\lambda_2\le 2h$ *already forces* $\lambda_2$ and $h$ to share a polynomial order in $n$ (some $n^{-p}$). The unified theory makes the strictly stronger claim that **all** the costumes share that **same exponent $p$** — that they are one quantity, so they must scale identically, not merely monotonically together. Refutation is sharp and cheap: compute the five costumes on $B_n$ for $n=10,20,40,80$, fit each to $n^{-p_i}$, and check $p_1=\cdots=p_5$. A single costume with a different exponent — say a bridge curvature that stays $\Theta(1)$ while the spectral gap falls as $n^{-2}$ — breaks the claim that they are one number in nine costumes, and with it the §4½ tour. This is the most quantitative test in the program and needs only the existing `lau-spectral-graph-agent`, `lau-ricci-flow-agents`, and `sheaf-cohomology` crates run across four graph sizes.
 
-Prediction 6 is the one that matters most for the *theory* (conserved $=$ loop-invariant); Prediction 8 is the one easiest to *run tomorrow*. The whole unified theory stands or falls on these two.
+9. **(§4¾, the obstruction coincides)** On a twisted cycle sheaf over $C_n$ with holonomy $\mathrm{hol}\ne1$, three independently-computed quantities must agree and must be **nonzero together**: the sheaf frustration ($\dim H^0=0$, $\lambda_{\min}>0$; `test_twisted_sheaf_lower_consistency`), the emptiness of common knowledge ($\Gamma(\mathcal F)=0$; `test_agent_common_knowledge_empty`), and the $\pi_1$ winding number ($\ne0$; `fundamental_group`). Moreover the winding number, being an integer in $\pi_1(S^1)=\mathbb Z$, must be **conserved** under the Ricci/community flow — quantized, hence rigid. Refutation: a twisted cycle with empty common knowledge but trivial $\pi_1$, or a winding number that the community-detection flow continuously relaxes to zero. This is Prediction 6 in its *obstructed* form — conserved $=$ loop-invariant, witnessed by a defect rather than a consensus.
+
+Prediction 6 is the one that matters most for the *theory* (conserved $=$ loop-invariant); Prediction 8 is the one easiest to *run tomorrow*; Prediction 9 is the one that tests the hard, non-flat case where the loop does not collapse to biduality. The whole unified theory stands or falls on these.
 
 ---
 
