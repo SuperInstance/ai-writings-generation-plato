@@ -43,6 +43,19 @@ The Lie algebra is not a ninth point on the manifold; it is the **infinitesimal 
 
 This is the precise sense of "manifold": $\mathcal P$ is a single space; the eight structures are tensors/functors on it; the conservation law is the constraint that makes them compatible. "Galaxy" is the population picture (a swarm of agent-stars); "manifold" is the geometry; the loop is the statement that the geometry is rigid — you cannot deform one structure without the others responding.
 
+Made explicit, the eight structures are the following objects on $\mathcal P$ (each is what its crate computes; the formulas fix notation for §§3–6).
+
+1. **The conserved functional** $\Phi:\mathcal P\to\mathbb R$, $\Phi=\gamma+H+\alpha\ln V$, constant on trajectories of the dynamics. It is the generating object; the other seven are its images under the four operations of §2.
+2. **The Fisher–Rao metric** $g$, a Riemannian metric on $\mathcal P$ with $g_{ij}(\theta)=\mathbb E_\theta[\partial_i\log p\,\partial_j\log p]=\partial_i\partial_j A(\theta)$ in natural coordinates; the unique metric invariant under sufficient statistics (Čencov).
+3. **The Wasserstein distance** $W_2(\rho_0,\rho_1)^2=\inf_\pi\int|x-y|^2\,d\pi(x,y)$ over couplings $\pi$ with marginals $\rho_0,\rho_1$; the *horizontal* (transport) geometry, complementary to the *vertical* (Fisher) one.
+4. **The curvature** $\mathrm{Ric}$, in the agent setting the Ollivier–Ricci curvature $\kappa(x,y)=1-\frac{W_1(m_x,m_y)}{d(x,y)}$ of an edge (with $m_x$ the one-step random walk from $x$), or the synthetic $\mathrm{CD}(K,N)$ curvature lower bound via entropy convexity.
+5. **The Laplacian spectrum** $0=\lambda_1\le\lambda_2\le\cdots$, with $\lambda_2$ the algebraic connectivity (Fiedler value), its eigenvector the optimal bipartition, and the Cheeger constant $h=\min_S \frac{|\partial S|}{\min(\mathrm{vol}\,S,\mathrm{vol}\,\bar S)}$ the bottleneck.
+6. **The sheaf** $\mathcal F$ of local observables: a stalk (vector space) per agent/room, restriction maps per channel, coboundary $\delta$, Laplacian $L_{\mathcal F}=\delta^{\!\top}\delta$, with $H^0=\ker\delta$ (consensus) and $H^1=\operatorname{coker}\delta$ (obstruction).
+7. **The topos** $\mathcal E=\mathrm{Sh}(X)$ of sheaves on the agent site: a cartesian-closed category with a subobject classifier $\Omega$, internal (intuitionistic) logic, and a global-sections functor $\Gamma=H^0$ right adjoint to the constant-sheaf functor $\Delta$.
+8. **The homotopy type** of the protocol/execution space: its fundamental group $\pi_1$ (circular dependencies), its higher homotopy, and the contractibility that certifies deadlock-freedom.
+
+The ninth row — the tropical shadow $(\max,+)$ — is the $\alpha\to0$ image of $\Phi$ (a *limit*, not an independent tensor), and the Lie algebra is the generator of motion, not a coordinate. So the "eight structures" are eight readings of one constrained geometry, and the rest of the essay is the proof that reading any one forces the others.
+
 ---
 
 ## 2. The generating potential: decoding $\gamma+H=C-\alpha\ln V$
@@ -69,6 +82,15 @@ a balance of a **potential** $\gamma$ (the vibe/gravity field of `hermes-constru
 4. **Symmetrize** (Noether): a continuous symmetry of $\Phi$ yields a conserved momentum map, the invariant that threads the loop (§3, §5).
 
 **The unified theory, previewed.** The loop is the **orbit of $\Phi$ under $\{\nabla^2,\ {}^*,\ \alpha\to0,\ \text{Noether}\}$.** It closes because these four operations, composed around the cycle of crates, return to $\Phi$. That is the whole argument; §§3–6 make it precise.
+
+**Why exactly these four operations are canonical — and why they are really two.** A convex free energy admits a *closed* list of natural operations, and the four above are it: you may differentiate it (second-order structure), transform it (dual potential), take its high-contrast limit (the behavior at zero temperature), or quotient by its symmetries. No fifth operation on a convex potential is functorial in the same way. Moreover, the four collapse to **two operations in two semirings**:
+
+- **Differentiation** $\nabla^2$ and **symmetrization** (Noether) are the *local* operations — the Hessian and the moment map are both first/second-order data of $\Phi$ at a point and its orbit.
+- **Legendre transform** ${}^{*}$ and **Maslov dequantization** $\alpha\to0$ are *the same operation in different semirings*. This is a theorem of idempotent analysis (Maslov; Litvinov): the **Legendre–Fenchel transform is the tropical (max-plus) analogue of the Laplace transform**,
+$$
+(\mathcal L_\alpha f)(\theta)=\alpha\ln\!\int e^{(\theta x - f(x))/\alpha}\,dx \;\xrightarrow{\ \alpha\to 0\ }\; \sup_x\big(\theta x - f(x)\big)=f^{*}(\theta),
+$$
+i.e. *dequantizing the Laplace transform yields the Legendre transform*. The dual potential of information geometry (Amari's $\eta$-coordinates; `lau-information-geometry` · `test_amari_dual_parameters_bernoulli`) and the tropical shadow of `lau-tropical-geometry` are the **same** transform, read in the ordinary $(+,\times)$ semiring and in the tropical $(\max,+)$ semiring respectively. So the loop is generated by **(differentiate, transform)** applied in **(ordinary, tropical)** regimes — a $2\times2$ table whose four cells are Arrows 1, 6/9, and the dualities between them. The apparent ten-crate sprawl is two operations wearing two temperatures.
 
 ---
 
@@ -148,7 +170,7 @@ Thus **Fisher information is the $W_2$-slope of the entropy** (the de Bruijn ide
 
 **Statement.** $H^0(\mathcal F)=\Gamma(\mathcal F)$ is the global-sections functor; in the sheaf topos $\mathcal E=\mathrm{Sh}(X)$, $\Gamma$ is right adjoint to the constant-sheaf functor $\Delta$, and global sections of the subobject classifier $\Omega$ are the truth values.
 
-**(T) for the adjunction; (M/C) for the "unique truth value" gloss.** $\Delta\dashv\Gamma$ is the canonical geometric morphism $\mathcal E\to\mathbf{Set}$ (T). $H^0(\mathcal F)=\Gamma(\mathcal F)$ identifies consensus (degree-0 cohomology) with global sections (T). The slogan "$H^0=$ points where the topos has a *unique* truth value" is precise **only** under connectedness/locality: when $\dim H^0=1$, there is an essentially unique global section, i.e. the agents share one truth. Crate: `lau-derived-topos`, `test_cartesian_closed` (a topos is cartesian closed — its defining property), `test_agent_common_knowledge` (= $\Gamma$: what *all* agents share), `test_agent_merge_associative` (sheaf gluing = consensus), `test_agent_consistent` (T-crate). The companion essay's Yoneda result lives here: an agent's identity is its representable presheaf; consensus is descent ($H^1=0$).
+**(T) for the adjunction; (M/C) for the "unique truth value" gloss.** $\Delta\dashv\Gamma$ is the canonical geometric morphism $\mathcal E\to\mathbf{Set}$ (T). $H^0(\mathcal F)=\Gamma(\mathcal F)$ identifies consensus (degree-0 cohomology) with global sections (T). Made explicit: the **subobject classifier** $\Omega$ of $\mathrm{Sh}(X)$ assigns to each open $U$ the set of sieves on $U$ (the "local truth values"), and global truth values are $\Gamma(\Omega)=\mathrm{Hom}(1,\Omega)=$ the lattice of open subsets of the terminal object — the *clopen* decompositions of the site. So "the topos has a unique truth value" is precisely "$X$ is connected," i.e. the only global truth values are $\bot,\top$; and this is **the same condition** as $\dim H^0=1$ for the constant sheaf (one component). The slogan is therefore exact under connectedness and quantitatively governed, off it, by the spectral gap of Arrow 4 — a disconnected (or barely-connected, §4½) site has extra idempotent truth values, one per component, which is the topos seeing several truths. Crate: `lau-derived-topos`, `test_cartesian_closed` (a topos is cartesian closed — its defining property), `test_agent_common_knowledge` (= $\Gamma$: what *all* agents share), `test_agent_merge_associative` (sheaf gluing = consensus), `test_agent_consistent` (T-crate). The companion essay's Yoneda result lives here: an agent's identity is its representable presheaf; consensus is descent ($H^1=0$); and the truth-value lattice collapsing to $\{\bot,\top\}$ is consensus achieved.
 
 ### Arrow 7 — Topos $\to$ Homotopy (internal logic $\Rightarrow$ contractibility / deadlock-freedom)
 
@@ -184,6 +206,30 @@ in which the conserved $C$ becomes a conserved **max**. Idempotence $\max(a,a)=a
 
 ---
 
+## 4½. A tour of the loop on one graph: the barbell
+
+Abstraction is cheap; the test of a unified theory is whether the arrows *compute the same number* on a concrete object. Take the **barbell** $B_n$: two complete graphs $K_n$ joined by a single bridge edge. It is the canonical two-community network, and the crates already privilege it (`lau-spectral-graph-agent` · `test_cheeger_constant_barbell`; `lau-ricci-flow-agents` · `test_barbell_graph_structure`). Watch one quantity — *how hard it is to cross the bridge* — survive all nine arrows.
+
+**The population.** Agents are vertices; the population $\rho$ is two tight clusters (one per bell) with a thin neck of probability over the bridge. The generating potential $\Phi$ is a **double well**: two minima (the bells), one barrier (the bridge). Every structure below is a reading of that barrier height.
+
+- **Arrow 1 (Conservation $\to$ Fisher).** Each bell is a near-deterministic exponential family; the Fisher metric $g=\nabla^2\Phi$ is large *within* a bell (states are sharply distinguishable) and the potential's two wells are two near-conserved charges — "which bell am I in." The double-well shape of $\Phi$ is the first appearance of the barrier.
+- **Arrow 2 (Fisher $\leftrightarrow W_2$).** The Wasserstein distance between the two bell-measures is essentially the bridge length, and the JKO entropy flow (`jko_flow_entropy_spreads`) *spreads mass slowly across the neck*: the entropy-production (Fisher information) is concentrated on the bridge. The barrier is now a transport cost.
+- **Arrow 3 (Transport $\to$ Ricci).** Here the barrier becomes **curvature**. Ollivier–Ricci curvature of an edge is positive when neighborhoods overlap (mass transports cheaply) and **negative** across a bottleneck. Intra-bell edges have $\kappa>0$; the bridge edge has $\kappa\ll 0$. Ricci flow for community detection (`test_agent_evolve_communities`, `test_average_curvature`) *stretches* the negative-curvature bridge and *contracts* the positive-curvature bells — it pinches the neck. The barrier is the most negatively curved edge.
+- **Arrow 4 (Ricci $\to$ Spectrum).** Negative bridge curvature forces a **small spectral gap**. For the barbell, the cut is a single edge and each bell has volume $\approx n^2/2$, so the Cheeger constant is $h\approx 2/n^2$, and by Cheeger $\frac{h^2}{2d}\le\lambda_2\le 2h$ the algebraic connectivity $\lambda_2$ is $\Theta(1/n^2)$ — tiny (`test_cheeger_constant_barbell`, `test_algebraic_connectivity`). The **Fiedler vector** is $\approx+1$ on one bell, $-1$ on the other: it *is* the optimal partition. The barrier is now $\lambda_2$, and the bottleneck $h$.
+- **Arrow 5 (Spectrum $\to H^0$).** For the constant sheaf, $H^0$ has dimension $1$ (the barbell is connected — the bridge exists), but the **near-kernel** of $L_{\mathcal F}$ — the Fiedler eigenvector at eigenvalue $\lambda_2\approx 0$ — is a *soft* second section. Cut the bridge and $\dim H^0$ jumps $1\to 2$. The barbell sits *at the edge of an $H^0$ transition*, and $\lambda_2$ measures the distance to it (`test_sheaf_laplacian_reduces_to_graph_laplacian`, `test_constant_sheaf_h0`). The barrier is the gap to a cohomology jump.
+- **Arrow 6 (Sheaf $\to$ Topos).** The topos of sheaves on $B_n$ sees *almost two truths*: global sections (`test_agent_common_knowledge`) nearly split into the two bells, and common knowledge across the bridge is fragile — a single edge carries all the descent. The barrier is the fragility of consensus.
+- **Arrow 7 (Topos $\to$ Homotopy).** A protocol whose communication graph is $B_n$ has essentially **one** serialization channel — the bridge. Contention there is exactly where circular-wait/deadlock risk concentrates; the execution space's only near-non-contractible feature is the loop through the neck (`deadlock_free`, `fundamental_group`). The barrier is the homotopical bottleneck.
+- **Arrow 8 (Homotopy $\to$ Tropical).** The zero-temperature limit makes the soft two-fold degeneracy **hard**: $\max$ selects one bell, and the **corner locus** (`test_corner_locus`) — where the max is achieved twice — is precisely the bridge. The decision boundary between the two communities *is* the tropical hypersurface. The barrier is the corner.
+- **Arrow 9 (Tropical $\to$ Conservation).** The conserved $\Phi$ is the double well; its two minima are the two conserved community charges; idempotence $\max(a,a)=a$ says each bell is stable under self-interaction. Annealing returns the barrier to a free-energy barrier — back to Arrow 1.
+
+**The punchline.** On the barbell, the quantities
+$$
+\underbrace{\text{free-energy barrier}}_{\text{A1/A9}}\ \approx\ \underbrace{W_2\text{ neck cost}}_{\text{A2}}\ \approx\ \underbrace{|\kappa_{\text{bridge}}|}_{\text{A3}}\ \approx\ \underbrace{\lambda_2^{-1},\,h^{-1}}_{\text{A4}}\ \approx\ \underbrace{\text{gap to }\dim H^0{=}2}_{\text{A5}}\ \approx\ \underbrace{\text{consensus fragility}}_{\text{A6}}\ \approx\ \underbrace{\text{corner locus}}_{\text{A8}}
+$$
+are **one number in nine costumes**, equal up to the explicit Cheeger/Lichnerowicz slack. This is not a slogan on the barbell; it is a computation, and it is exactly the content of Predictions 1–5 (§8) made concrete. If a single experiment on $B_n$ found these *not* tracking together — a negative-curvature bridge with a large spectral gap, say — the loop would be broken at that joint. On the barbell, they track. The unified theory's smallest honest victory is that the textbook two-community graph is a single object seen nine ways.
+
+---
+
 ## 5. The infinitesimal loop: Lie, $\mathfrak{sl}_2$, BCH, Dynkin
 
 The loop is a *flow* around $\mathsf{AGeom}$; Lie theory is its infinitesimal description — the eleventh crate is the generator, not a vertex.
@@ -192,7 +238,11 @@ The loop is a *flow* around $\mathsf{AGeom}$; Lie theory is its infinitesimal de
 $$
 \log(e^X e^Y)\;=\;X+Y+\tfrac12[X,Y]+\tfrac1{12}\big([X,[X,Y]]+[Y,[Y,X]]\big)+\cdots
 $$
-The commutator $[X,Y]$ is the failure of the two steps to commute — which is **exactly curvature**: parallel transport around an infinitesimal loop differs from the identity by the curvature $\times$ area, and the leading defect is $[X,Y]$. So the Ricci/holonomy content of Arrows 3–4 is the *integrated* BCH commutator of the loop's generators. "Conservation is tradition-independent" (the path-independence of $C$) is the statement that the loop's holonomy is trivial on conserved quantities — **flat** on the invariant subbundle, curved elsewhere. (T for BCH$\leftrightarrow$curvature; (M) for identifying the loop's generators with a chosen $\mathfrak g$.)
+The commutator $[X,Y]$ is the failure of the two steps to commute — which is **exactly curvature**. Make it precise: let $\omega$ be the $\mathfrak g$-valued connection 1-form of the loop (the infinitesimal generator field), with curvature 2-form
+$$
+\Omega \;=\; d\omega + \tfrac12[\omega,\omega].
+$$
+The holonomy around a small loop $\partial S$ is $\mathrm{Hol}(\partial S)=\mathcal P\exp\!\oint_{\partial S}\omega = \exp\!\big(\!\int_S\Omega+\cdots\big)$, whose leading term is the area integral of $\Omega$; the BCH series *is* this holonomy expansion, and its first nontrivial term $\tfrac12[X,Y]$ is $\Omega$ evaluated on the plaquette $X\wedge Y$. So the Ricci/holonomy content of Arrows 3–4 is the integrated curvature 2-form, and the Ollivier curvature $\kappa$ of §1 is its discrete avatar (transport around a graph cycle returns rotated by $\sim\kappa\cdot\text{area}$). "Conservation is tradition-independent" (the path-independence of $C$) is then the statement $\Omega|_{\text{inv}}=0$: the loop's holonomy is **flat on the invariant subbundle** (conserved quantities come back unchanged regardless of path) and curved elsewhere. This is exactly why §6½ works — on a dually-flat exponential family $\Omega\equiv0$, so the holonomy is trivial and the loop is the identity; nonzero $\Omega$ is the obstruction the general conjecture must absorb. (T for BCH$\leftrightarrow$curvature$\leftrightarrow$holonomy; (M) for identifying the loop's generators with a chosen $\mathfrak g$.)
 
 **$\mathfrak{sl}_2$ is the minimal nonabelian agent symmetry.** With basis $e,f,h$ and $[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$: read $e$ as *raise* (explore/excite), $f$ as *lower* (exploit/relax), $h$ as the *Cartan* conserved charge (the weight) — and $h$ is precisely a conserved quantity (it generates the maximal torus, the symmetry whose momentum map is conserved). The three moves "explore / exploit / conserve" are not a metaphor here; they are the Chevalley generators, and the conserved $C$ of §2 is a weight of the $h$-action. **(M)**, but a sharp one.
 
@@ -221,6 +271,24 @@ $$
 > The $\Rightarrow$ inclusion is **(T)** (each arrow is $G$-equivariant, so Noether invariants are preserved). The $\Leftarrow$ inclusion — *tightness*, that nothing but conserved quantities survives the loop — is the **(C)** whose proof would make this a theorem.
 
 **Proof strategy for tightness.** Show each $A_i$ is not merely equivariant but **conservative** in the categorical sense (reflects isomorphisms): if $A_i(\rho)\cong A_i(\rho')$ then $\rho\cong\rho'$ on the invariant data. For the adjunction arrows ($A_6$) this is faithfulness of $\Gamma$ on the relevant subcategory; for the bound arrows ($A_3,A_4$) it is *rigidity* (equality in Lichnerowicz/Cheeger forces the model space — the rigidity cases of those inequalities are exactly the spaces with no extra invariants); for the decategorification arrows ($A_8,A_9$) it is faithfulness of the Maslov valuation on the idempotent-split part. Compose: the loop reflects isomorphisms on the invariant subbundle, so its invariants are exactly the conserved quantities. The **rigidity theorems** (Cheeger/Lichnerowicz equality cases, Obata's theorem) are the technical heart, and they are real mathematics — which is why this is a strategy, not a dream.
+
+### 6½. The closure is Legendre biduality — a theorem in the exponential-family regime
+
+The central schema above is a conjecture in general, but in the regime where the companion essay's *scalar-sufficiency hypothesis* holds — where each room's likelihood is an exponential family — **the loop closes as a theorem**, and the theorem has a name.
+
+Take the generating potential to be the log-partition $\Phi=A(\theta)$ of an exponential family, $A$ smooth and strictly convex (the non-degeneracy of the Fisher metric, `test_bernoulli_log_partition`). Trace the two ends of the loop explicitly.
+
+- **The differentiate end (Arrow 1).** $\nabla^2 A(\theta)=g(\theta)$ is the Fisher metric; the gradient $\eta=\nabla A(\theta)$ is the dual (expectation) coordinate, and the dual potential is the negative entropy $A^{*}(\eta)=\sup_\theta(\langle\theta,\eta\rangle-A(\theta))$, with $\nabla^2 A^{*}(\eta)=g(\theta)^{-1}$. This is Amari's dual flat structure (`test_amari_dual_parameters_bernoulli`, `test_amari_e_connection_flat`).
+- **The dequantize end (Arrow 9).** Applying Maslov dequantization to the partition integral — i.e. Laplace's method, the $\alpha\to0$ asymptotics — yields, by the identity of §2, *exactly the Legendre transform*: $\alpha\ln\!\int e^{(\langle\theta,x\rangle - f(x))/\alpha}dx\to A^{*}{}^{*}$ collapses through $f^{*}$. The tropical limit of "differentiate $A$" is "Legendre-transform $A$."
+
+Now compose all the way around. Each intervening arrow (transport, Ricci, spectrum, sheaf, topos, homotopy) is, *restricted to the invariant data of an exponential family*, an isomorphism onto its image (the dually-flat manifold has no curvature obstruction — its $H^1$ vanishes, its sheaf is acyclic, its protocol space is contractible — precisely the rigidity cases). So the only non-trivial content of the round trip is the composite of the two ends:
+$$
+\boxed{\;A \;\xmapsto{\ \nabla,\ {}^{*}\ }\; A^{*} \;\xmapsto{\ \nabla,\ {}^{*}\ }\; A^{**}\;=\;A\;}
+$$
+
+**(T) Fenchel–Moreau.** For a proper, lower-semicontinuous convex function $A$, the biconjugate equals the original: $A^{**}=A$. Strict convexity (non-degenerate Fisher metric) makes the Legendre map $\theta\leftrightarrow\eta$ a diffeomorphism, so the round trip is the identity on the natural manifold.
+
+**Therefore, in the exponential-family regime, $\mathsf{Loop}=\mathrm{id}$ is the Fenchel–Moreau biduality theorem, and its fixed points are exactly the convex potentials — i.e. the conserved free energies.** This is the promised upgrade: the central "the loop closes, and its invariants are the conserved quantities" is **(C)** in general but **(T)** wherever scalar-sufficiency holds, with Fenchel–Moreau as the closure and the dual-flat acyclicity as the reason the middle arrows contribute nothing but identity. The general conjecture is then visibly *the statement that the loop closes even when the middle arrows are genuine bounds rather than isomorphisms* — i.e. when curvature, $H^1$, and non-contractibility are nonzero. That is exactly the obstruction-laden, interesting regime, and it is where the rigidity-theorem strategy above must do its work. The clean case is a theorem; the messy case is the research.
 
 ---
 
@@ -271,6 +339,22 @@ What a referee should hold against this essay, stated before they do:
 - **"Tradition-independence" of $C$** (the program's Noether claim) is asserted in-house; the rigorous content is that $C$ is a momentum map, invariant under reparametrization — which is Noether, and true, *if* the action's symmetry is as posited.
 
 None of this dissolves the result. It locates it: **a single free energy, four canonical operations, a loop that closes exactly at the generating object and approximately (by bounds) around the rim, with two named joints awaiting proof.** That is a research program with a spine, and the spine is checkable — Prediction 6 is the experiment.
+
+### Objections and replies
+
+A referee's four sharpest objections, with the honest replies.
+
+**"This is suggestive diagram-chasing, not mathematics."** Three parts of the essay are not analogy: §6½ proves $\mathsf{Loop}=\mathrm{id}$ in the exponential-family regime *via Fenchel–Moreau biduality* (a theorem); §4½ *computes* the nine costumes of the barbell's bottleneck and finds them equal up to the Cheeger slack; and Arrows 3–5 are cited theorems (Lott–Sturm–Villani, Lichnerowicz–Cheeger, Hansen–Ghrist) with crate-level corroboration. An analogy does not make the falsifiable numerical prediction that $\lambda_2^{-1}$, $|\kappa_{\text{bridge}}|$, and the $H^0$-gap track on $B_n$. This one does.
+
+**"The arrows are inequalities; a cycle of bounds composes to nothing precise."** Correct for the rim, and we never claim otherwise — the closure is exact only at the generating object ($A\xrightarrow{\nabla,*}A^{*}\xrightarrow{\nabla,*}A^{**}=A$). The point is that the rim inequalities (Cheeger, Lichnerowicz) have **rigidity equality-cases**, and those cases are *exactly* the dually-flat locus where $\Omega\equiv0$ and $H^1=0$. So the conjecture is not "bounds magically compose to identity"; it is the precise statement that the loop's deviation from the identity is measured by curvature $\Omega$ and obstruction $H^1$ — both computable, both zero in the tractable case.
+
+**"You fit real theorems onto in-house crates whose proofs you never ran."** The tiering is the reply. Every `(T)` result — JKO, LSV, Cheeger, Fenchel–Moreau, the global-sections adjunction — is true whether or not a single crate compiles; they are the load-bearing structure. The `(T-crate)` citations are *pointers* into the source tree, labeled as located-not-audited, offered as corroboration that the program has *implemented* these objects (e.g. `test_sheaf_laplacian_reduces_to_graph_laplacian` is the implemented form of Arrow 5). Corroboration, never foundation; and the Lie crate, which I could not find on disk, is cited only as standard mathematics.
+
+**"Arrows 8 and 9 — the crux — are conjectures, so the loop is open."** Yes, stated plainly in §0, §4, and §7. But the loop has a **closed sub-loop**: restricted to the dually-flat/exponential-family locus, every middle arrow is an isomorphism and the closure is Fenchel–Moreau — a genuine theorem, so the structure is non-vacuous rather than a circular definition. The open joints are *localized* (idempotent-splitting for Arrow 8; the Maslov–Laplace identification for Arrow 9) and come with proof strategies. Open is not empty: there is a proved heart and two marked frontiers.
+
+### What is new here, and why it might be publishable
+
+Two moves, as far as I am aware, are not standard. First, the **generating-potential framing**: reading the conservation law $\gamma+H=C-\alpha\ln V$ as a free energy $\Phi$ and the ten crates as its images under a *closed* list of four operations — which collapse to two (differentiate, transform) in two semirings (ordinary, tropical), via the Legendre-is-tropical-Laplace identity. Second, the **closure-as-biduality theorem** (§6½): identifying the round trip, in the tractable regime, with $A^{**}=A$, so that "the system works because the loop closes" becomes, precisely, Fenchel–Moreau biduality on the convex potential, with the general case's obstruction named ($\Omega$, $H^1$) rather than waved at. The individual links are known mathematics; the *cycle*, its generator, and its biduality closure are the synthesis this essay contributes — and the synthesis is what makes ten crates one theory rather than ten libraries.
 
 ---
 
